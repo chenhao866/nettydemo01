@@ -21,7 +21,16 @@ public class client {
             Channel channel = bootstrap.connect("127.0.0.1",8888).sync().channel();
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             for (;;){
-                channel.writeAndFlush(br.readLine());
+                String str = br.readLine();
+                if (str.equals("exit")){
+                    channel.close();
+                    System.out.println("端口已关闭，可以关闭程序");
+                }if (str.equals("open")){
+                    channel = bootstrap.connect("127.0.0.1",8888).sync().channel();
+                    System.out.println("端口已开启");
+                }else {
+                    channel.writeAndFlush(str);
+                }
             }
         }finally {
             eventLoopGroup.shutdownGracefully();

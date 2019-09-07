@@ -42,10 +42,11 @@ public class clientHandler extends ChannelInboundHandlerAdapter {
         future.addListener(new GenericFutureListener() {
             public void operationComplete(Future future) throws Exception {
                 if (future.isSuccess()) {
-                    ping(channel);
+                    ping(channel);//继续执行线程；
                 }
             }
         });
+
     }
 
     @Override
